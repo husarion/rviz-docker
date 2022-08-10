@@ -5,15 +5,24 @@
 services:
   astra:
     image: husarion/astra:melodic
+    restart: unless-stopped
     devices:
       - /dev/bus/usb
-    tty: true        # docker run -t
-    command: roslaunch astra_camera astra.launch
+    tty: true
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+    command: roslaunch --wait astra_camera astra.launch
 
-  # ROS 2 Foxy
+  ros-master:
+    image: ros:noetic-ros-core
+    restart: unless-stopped
+    command: stdbuf -o L roscore
+
   rviz-intel:
     image: husarion/rviz:melodic
+    restart: unless-stopped
     environment: 
       - DISPLAY
+      - ROS_MASTER_URI=http://ros-master:11311
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
