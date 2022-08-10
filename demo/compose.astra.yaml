@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
     command: roscore
 
-  rviz-intel:
+  rviz:
     image: husarion/rviz:melodic
     restart: unless-stopped
     environment: 
