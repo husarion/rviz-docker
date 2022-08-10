@@ -1,0 +1,19 @@
+# Quick Start
+# $ xhost local:root
+# $ docker compose -f compose.astra.yaml up
+
+services:
+  astra:
+    image: husarion/astra:melodic
+    devices:
+      - /dev/bus/usb
+    tty: true        # docker run -t
+    command: roslaunch astra_camera astra.launch
+
+  # ROS 2 Foxy
+  rviz-intel:
+    image: husarion/rviz:melodic
+    environment: 
+      - DISPLAY
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
