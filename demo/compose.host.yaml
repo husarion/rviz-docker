@@ -9,7 +9,6 @@ services:
     network_mode: host
     devices:
       - /dev/bus/usb
-    tty: true
     environment:
       - ROS_MASTER_URI=${ROS_MASTER_URI:-http://127.0.0.1:11311}
       - ROS_IP=${ROS_IP:-127.0.0.1}
@@ -21,7 +20,6 @@ services:
     network_mode: host
     devices:
       - /dev/ttyUSB0
-    tty: true
     environment:
       - ROS_MASTER_URI=${ROS_MASTER_URI:-http://127.0.0.1:11311}
       - ROS_IP=${ROS_IP:-127.0.0.1}
@@ -31,7 +29,6 @@ services:
     image: ros:noetic-ros-core
     restart: unless-stopped
     network_mode: host
-    tty: true
     environment:
       - ROS_IP=${ROS_IP:-127.0.0.1}
     command: roscore
@@ -40,7 +37,6 @@ services:
     image: husarion/rviz:noetic
     restart: unless-stopped
     network_mode: host
-    tty: true
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./default.rviz:/root/.rviz/default.rviz
