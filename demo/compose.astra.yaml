@@ -19,13 +19,11 @@ services:
     command: roscore
 
   rviz:
-    image: husarion/rviz:melodic
+    image: husarion/rviz:noetic
     restart: unless-stopped
     environment: 
       - DISPLAY
       - ROS_MASTER_URI=http://ros-master:11311
-      - LIBGL_ALWAYS_SOFTWARE=1
+      # - LIBGL_ALWAYS_SOFTWARE=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-    # command: rosrun --wait rviz rviz
-    command: sleep 3600
