@@ -16,8 +16,10 @@ services:
 
   rplidar:
     image: husarion/rplidar:melodic
+    restart: unless-stopped
     devices:
       - /dev/ttyUSB0
+    tty: true
     environment:
       - ROS_MASTER_URI=http://ros-master:11311
     command: roslaunch --wait rplidar_ros rplidar.launch
@@ -25,11 +27,13 @@ services:
   ros-master:
     image: ros:noetic-ros-core
     restart: unless-stopped
+    tty: true
     command: roscore
 
   rviz:
     image: husarion/rviz:noetic
     restart: unless-stopped
+    tty: true
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./default.rviz:/root/.rviz/default.rviz
