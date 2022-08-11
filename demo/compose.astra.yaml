@@ -21,9 +21,10 @@ services:
   rviz:
     image: husarion/rviz:noetic
     restart: unless-stopped
-    environment: 
-      - DISPLAY
-      - ROS_MASTER_URI=http://ros-master:11311
-      # - LIBGL_ALWAYS_SOFTWARE=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./astra.rviz:/root/.rviz/default.rviz
+    environment: 
+      - DISPLAY=${DISPLAY:?You need to define display env}
+      - ROS_MASTER_URI=http://ros-master:11311
+      # - LIBGL_ALWAYS_SOFTWARE=1
