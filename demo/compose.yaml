@@ -13,6 +13,14 @@ services:
       - ROS_MASTER_URI=http://ros-master:11311
     command: roslaunch --wait astra_camera astra.launch
 
+  rplidar:
+    image: husarion/rplidar:melodic
+    devices:
+      - /dev/ttyUSB0
+    environment:
+      - ROS_MASTER_URI=http://ros-master:11311
+    command: roslaunch --wait rplidar_ros rplidar.launch
+
   ros-master:
     image: ros:noetic-ros-core
     restart: unless-stopped
@@ -23,7 +31,7 @@ services:
     restart: unless-stopped
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ./astra.rviz:/root/.rviz/default.rviz
+      - ./default.rviz:/root/.rviz/default.rviz
     environment: 
       - DISPLAY=${DISPLAY:?You need to define display env}
       - ROS_MASTER_URI=http://ros-master:11311
