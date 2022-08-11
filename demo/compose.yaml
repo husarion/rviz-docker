@@ -1,3 +1,4 @@
+
 # Quick Start
 # $ xhost local:root
 # $ docker compose up
@@ -36,3 +37,10 @@ services:
       - DISPLAY=${DISPLAY:?You need to define display env}
       - ROS_MASTER_URI=http://ros-master:11311
       # - LIBGL_ALWAYS_SOFTWARE=1
+
+  frame_transformer:
+    image: husarion/rviz:noetic
+    restart: unless-stopped
+    environment: 
+      - ROS_MASTER_URI=http://ros-master:11311 
+    command: rosrun tf static_transform_publisher 0 0 0 0 0 0 laser camera_link 0

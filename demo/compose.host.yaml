@@ -15,13 +15,16 @@ services:
       - ROS_IP=${ROS_IP:-127.0.0.1}
     command: roslaunch --wait astra_camera astra.launch
 
-  # rplidar:
-  #   image: husarion/rplidar:melodic
-  #   devices:
-  #     - /dev/ttyUSB0
-  #   environment:
-  #     - ROS_MASTER_URI=http://ros-master:11311
-  #   command: roslaunch --wait rplidar_ros rplidar.launch
+  rplidar:
+    image: husarion/rplidar:melodic
+    restart: unless-stopped
+    network_mode: host
+    devices:
+      - /dev/ttyUSB0
+    environment:
+      - ROS_MASTER_URI=${ROS_MASTER_URI:-http://127.0.0.1:11311}
+      - ROS_IP=${ROS_IP:-127.0.0.1}
+    command: roslaunch --wait rplidar_ros rplidar.launch
 
   ros-master:
     image: ros:noetic-ros-core
@@ -44,3 +47,12 @@ services:
       - ROS_MASTER_URI=${ROS_MASTER_URI:-http://127.0.0.1:11311}
       - ROS_IP=${ROS_IP:-127.0.0.1}
       # - LIBGL_ALWAYS_SOFTWARE=1
+
+  frame_transformer:
+    image: husarion/rviz:noetic
+    restart: unless-stopped
+    network_mode: host
+    environment: 
+      - ROS_MASTER_URI=${ROS_MASTER_URI:-http://127.0.0.1:11311}
+      - ROS_IP=${ROS_IP:-127.0.0.1}
+    command: rosrun tf static_transform_publisher 0 0 0 0 0 0 laser camera_link 0
