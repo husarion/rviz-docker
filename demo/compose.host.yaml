@@ -1,6 +1,6 @@
 # Quick Start
 # $ xhost local:root
-# $ docker compose up
+# $ docker compose -f compose.host.yaml up
 
 services:
   astra:
