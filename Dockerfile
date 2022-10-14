@@ -2,8 +2,6 @@ ARG ROS_DISTRO=noetic
 
 FROM ros:$ROS_DISTRO-ros-core
 
-SHELL ["/bin/bash", "-c"]
-
 RUN apt-get update && apt-get install -y \
         ros-$ROS_DISTRO-rviz && \
     apt-get clean && \
@@ -14,6 +12,8 @@ RUN apt-get update && apt-get install -y \
 # ENV NVIDIA_DRIVER_CAPABILITIES \
 #     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-RUN echo ". /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+COPY ./ros_entrypoint.sh /
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
 
 CMD ["rosrun", "rviz", "rviz"]
