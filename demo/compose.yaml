@@ -5,7 +5,7 @@
 
 services:
   astra:
-    image: husarion/astra:melodic
+    image: husarion/astra:noetic
     restart: unless-stopped
     devices:
       - /dev/bus/usb
@@ -14,7 +14,7 @@ services:
     command: roslaunch --wait astra_camera astra.launch
 
   rplidar:
-    image: husarion/rplidar:melodic
+    image: husarion/rplidar:noetic
     restart: unless-stopped
     devices:
       - /dev/ttyUSB0
