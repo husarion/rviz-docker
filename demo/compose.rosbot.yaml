@@ -32,7 +32,7 @@ services:
     restart: unless-stopped
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ./default.rviz:/root/.rviz/default.rviz
+      - ./rosbot.rviz:/root/.rviz/default.rviz
     environment: 
       - DISPLAY=${DISPLAY:?You need to define display env}
       - ROS_MASTER_URI=http://ros-master:11311
